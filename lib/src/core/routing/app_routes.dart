@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:routemaster/routemaster.dart';
 
 import '../../features/auth/presentation/login_page.dart';
 import '../../features/auth/presentation/register_page.dart';
-import '../../features/document/presentation/widgets/document_page.dart';
 import '../../features/document/presentation/widgets/new_document_page.dart';
 
 const _login = '/login';
@@ -34,7 +34,7 @@ final routesLoggedIn = RouteMap(
       if (docId == null) {
         return const Redirect(_newDocument);
       }
-      return TransitionPage(child: DocumentPage(documentId: docId));
+      return TransitionPage(child: Center(child: Container()));
     },
   },
 );

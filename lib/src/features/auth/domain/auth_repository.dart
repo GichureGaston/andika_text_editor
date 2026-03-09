@@ -1,11 +1,16 @@
 abstract class AuthRepository {
-  Future<void> signInEmailAndPassword(String? email, String? password);
-  Future<void> signUpEmailAndPassword(
-    String? email,
-    String? password, {
-    String? name,
-  });
+  Future<void> create({
+    required String email,
+    required String password,
+    required String name,
+  }) async {}
 
-  Future<void> signOut();
-  Future<void> resetPassword(String? email);
+  Future<void> createSession({
+    required String email,
+    required String password,
+  }) async {}
+
+  Future<void> get() async {}
+
+  Future<void> deleteSession({required String sessionId}) async {}
 }

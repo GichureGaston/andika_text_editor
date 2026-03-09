@@ -1,40 +1,34 @@
 import 'package:andika/src/features/auth/domain/auth_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthRepoImpl extends AuthRepository {
-  AuthRepoImpl(this._firebase);
-  final FirebaseAuth _firebase;
+class AuthRepoImpl implements AuthRepository {
   @override
-  Future<void> resetPassword(String? email) async {
-    // TODO: implement resetPassword
-    return _firebase.confirmPasswordReset(code: '', newPassword: '');
+  Future<void> create({
+    required String email,
+    required String password,
+    required String name,
+  }) {
+    // TODO: implement create
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> signInEmailAndPassword(String? email, String? password) async {
-    // TODO: implement signInEmailAndPassword
-    await _firebase.signInWithEmailAndPassword(email: '', password: '');
-    return;
+  Future<void> createSession({
+    required String email,
+    required String password,
+  }) {
+    // TODO: implement createSession
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> signOut() async {
-    // TODO: implement signOut
-    await _firebase.signOut();
+  Future<void> deleteSession({required String sessionId}) {
+    // TODO: implement deleteSession
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> signUpEmailAndPassword(
-    String? email,
-    String? password, {
-    String? name,
-  }) async {
-    // TODO: implement signUpEmailAndPassword
-    try {
-      await _firebase.createUserWithEmailAndPassword(email: '', password: '');
-      return;
-    } catch (e) {
-      rethrow;
-    }
+  Future<void> get() {
+    // TODO: implement get
+    throw UnimplementedError();
   }
 }

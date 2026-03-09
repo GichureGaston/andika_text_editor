@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "90333509557",
+    "project_id": "andika-e938c",
+    "storage_bucket": "andika-e938c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90333509557:android:aea1a9fe8b29dbc0498bfc",
+        "android_client_info": {
+          "package_name": "com.andika.andika"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90333509557-6jrq2a8muo1tl8v0o5t27u0dmrdn81c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRtABnWFBroHHJDhMtakZd_-kIMMKIj3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90333509557-6jrq2a8muo1tl8v0o5t27u0dmrdn81c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthSuccess) {}
+        if (state is AuthAuthenticated) {}
       },
       builder: (context, state) {
         return Padding(
