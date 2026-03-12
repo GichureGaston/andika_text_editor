@@ -88,7 +88,7 @@ class _DocumentPageState extends State<DocumentPage> {
     _titleController.removeListener(_onContentChanged);
     _quillController.removeListener(_onContentChanged);
 
-    _titleController.text = document.title!;
+    _titleController.text = document.title ?? '';
 
     if (document.content.isNotEmpty) {
       _quillController.document = Document.fromDelta(document.content);
