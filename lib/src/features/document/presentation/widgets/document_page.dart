@@ -138,27 +138,23 @@ class _DocumentPageState extends State<DocumentPage> {
               children: [
                 doc.MenuBar(
                   leading: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Color(0xFF1A1714),
-                      ),
-                      onPressed: () => context.pop(),
-                    ),
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1714),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'A',
-                          style: TextStyle(
-                            color: Color(0xFFF0E6C8),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A1714),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'A',
+                            style: TextStyle(
+                              color: Color(0xFFF0E6C8),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),
