@@ -1,4 +1,11 @@
+import 'package:andika/src/features/auth/presentation/widgets/text_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/routing/app_routes.dart';
+import 'blocs/auth_bloc.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -10,13 +17,38 @@ class RegisterPage extends StatelessWidget {
 }
 
 class _RegisterForm extends StatefulWidget {
-  const _RegisterForm({super.key});
+  const _RegisterForm();
 
   @override
   State<_RegisterForm> createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<_RegisterForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameTextEditingController = TextEditingController();
+  final _emailTextEditingController = TextEditingController();
+  final _passwordTextEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameTextEditingController.dispose();
+    _emailTextEditingController.dispose();
+    _passwordTextEditingController.dispose();
+    super.dispose();
+  }
+
+  void _createAccount() {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthBloc>().add(
+        SignUpEvent(
+          email: _emailTextEditingController.text,
+          password: _passwordTextEditingController.text,
+          name: _nameTextEditingController.text,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

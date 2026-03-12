@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../domain/auth_repository.dart';
+import '../../data/models/user_model.dart';
+import '../../data/remote/auth_remote_repo.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -70,6 +71,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthError(message: e.toString()));
     }
   }
-
-  late final AuthRepository? authRepository;
 }

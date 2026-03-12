@@ -20,18 +20,16 @@ class RepositoryException implements Exception {
   }
 }
 
-mixin RepositoryExceptionMixin {
-  Future<T> exceptionHandler<T>(
-    FutureOr computation, {
-    String unkownMessage = 'Repository Exception',
-  }) async {
-    try {
-      return await computation;
-    } on FirebaseException catch (e) {
-      logger.warning(e.message, e);
-      throw RepositoryException(
-        message: e.message ?? 'An undefined error occured',
-      );
-    }
+Future<T> repoExceptionHandler<T>(
+  FutureOr<T> computation, {
+  String unknownMessage = 'Repository Exception',
+}) async {
+  try {
+    return await computation;
+  } on FirebaseException catch (e) {
+    logger.warning(e.message, e);
+    throw RepositoryException(
+      message: e.message ?? 'An undefined error occurred',
+    );
   }
 }

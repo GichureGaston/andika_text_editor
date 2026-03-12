@@ -49,7 +49,7 @@ class UpdateDocumentDelta extends DocumentEvent {
   final String pageId;
   final DeltaData deltaData;
 
-class SaveDocument extends DocumentEvent {}
+  const UpdateDocumentDelta({required this.pageId, required this.deltaData});
 
   @override
   List<Object?> get props => [pageId, deltaData];

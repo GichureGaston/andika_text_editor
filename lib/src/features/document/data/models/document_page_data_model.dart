@@ -2,8 +2,13 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_quill/quill_delta.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'document_page_data_model.g.dart';
+
+@JsonSerializable()
 class DocumentPageDataModel extends Equatable {
+  @JsonKey(name: '\$id')
   final String id;
 
   @JsonKey(defaultValue: '')
@@ -14,28 +19,14 @@ class DocumentPageDataModel extends Equatable {
 
   const DocumentPageDataModel({
     required this.id,
-    required this.title,
+    this.title,
     required this.content,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      '\$id': id,
-      'title': title,
-      'content': jsonEncode(content.toJson()),
-    };
-  }
+  factory DocumentPageDataModel.fromMap(Map<String, dynamic> map) =>
+      _$DocumentPageDataModelFromJson(map);
 
-  factory DocumentPageDataModel.fromMap(Map<String, dynamic> map) {
-    final contentJson = (map['content'] == null)
-        ? []
-        : jsonDecode(map['content']);
-    return DocumentPageDataModel(
-      id: map['\$id'],
-      title: map['title'] ?? '',
-      content: Delta.fromJson(contentJson),
-    );
-  }
+  Map<String, dynamic> toMap() => _$DocumentPageDataModelToJson(this);
 
   String toJson() => json.encode(toMap());
 
@@ -53,3 +44,15 @@ class DocumentPageDataModel extends Equatable {
     );
   }
 }
+
+Delta _deltaFromJson(dynamic value) {
+  if (value == null) return Delta()..insert('\n');
+  try {
+    final contentJson = jsonDecode(value as String);
+    return Delta.fromJson(contentJson);
+  } catch (_) {
+    return Delta()..insert('\n');
+  }
+}
+
+String _deltaToJson(Delta delta) => jsonEncode(delta.toJson());
