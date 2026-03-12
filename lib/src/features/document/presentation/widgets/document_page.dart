@@ -42,10 +42,6 @@ class _DocumentPageState extends State<DocumentPage> {
       LoadDocument(documentId: widget.documentId),
     );
 
-    context.read<DocumentBloc>().add(
-      SubscribeToDocument(pageId: widget.documentId),
-    );
-
     _quillController.addListener(_onContentChanged);
     _titleController.addListener(_onContentChanged);
   }
