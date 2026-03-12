@@ -83,47 +83,77 @@ class _LoginPageState extends State<LoginPage> {
                           color: Color(0xFF1A1714),
                         ),
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: const Text(
-                        'This is a Flutter app made with Firebase and Bloc ✍️',
-                      ),
-                    ),
-                  ),
-                  EmailTextField(controller: _emailTextEditingController),
-                  PasswordTextField(controller: _passwordTextEditingController),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Sign in'),
-                    ),
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      text: 'Don\'t have an account? ',
-                      children: [
-                        TextSpan(
-                          text: 'Join now',
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Routemaster.of(
-                              context,
-                            ).push(AppRoutes.register),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'Sign in to continue writing',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF9C8E78),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 28),
+                      EmailTextField(controller: _emailController),
+                      const SizedBox(height: 12),
+                      PasswordTextField(controller: _passwordController),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: state is AuthLoading ? null : _onSignIn,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1A1714),
+                          foregroundColor: const Color(0xFFF0E6C8),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: state is AuthLoading
+                            ? const SizedBox(
+                                height: 18,
+                                width: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Color(0xFFF0E6C8),
+                                ),
+                              )
+                            : const Text(
+                                'Sign in',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      ),
+                      const SizedBox(height: 16),
+                      Center(
+                        child: Text.rich(
+                          TextSpan(
+                            text: "Don't have an account? ",
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Color(0xFF6B6358),
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Join now',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF1A1714),
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => context.go(AppRoutes.signUp),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
