@@ -5,7 +5,11 @@ import 'package:flutter_quill/quill_delta.dart';
 
 class DocumentPageDataModel extends Equatable {
   final String id;
-  final String title;
+
+  @JsonKey(defaultValue: '')
+  final String? title;
+
+  @JsonKey(fromJson: _deltaFromJson, toJson: _deltaToJson)
   final Delta content;
 
   const DocumentPageDataModel({
