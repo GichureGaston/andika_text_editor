@@ -4,13 +4,62 @@ part of 'document_bloc.dart';
 sealed class DocumentEvent extends Equatable {
   const DocumentEvent();
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class CreateDocument extends DocumentEvent {}
+class CreateDocument extends DocumentEvent {
+  final String documentId;
+  final String owner;
 
-class SaveDocument extends DocumentEvent {}
+  const CreateDocument({required this.documentId, required this.owner});
 
-class CheckDocumentForError extends DocumentEvent {}
+  @override
+  List<Object?> get props => [documentId, owner];
+}
 
-class EditDocument extends DocumentEvent {}
+class LoadDocument extends DocumentEvent {
+  final String documentId;
+
+  const LoadDocument({required this.documentId});
+
+  @override
+  List<Object?> get props => [documentId];
+}
+
+class LoadAllDocuments extends DocumentEvent {
+  final String userId;
+
+  const LoadAllDocuments({required this.userId});
+
+  @override
+  List<Object?> get props => [userId];
+}
+
+class UpdateDocument extends DocumentEvent {
+  final String documentId;
+  final DocumentPageDataModel documentPage;
+
+  const UpdateDocument({required this.documentId, required this.documentPage});
+
+  @override
+  List<Object?> get props => [documentId, documentPage];
+}
+
+class UpdateDocumentDelta extends DocumentEvent {
+  final String pageId;
+  final DeltaData deltaData;
+
+  const UpdateDocumentDelta({required this.pageId, required this.deltaData});
+
+  @override
+  List<Object?> get props => [pageId, deltaData];
+}
+
+class SubscribeToDocument extends DocumentEvent {
+  final String pageId;
+
+  const SubscribeToDocument({required this.pageId});
+
+  @override
+  List<Object?> get props => [pageId];
+}

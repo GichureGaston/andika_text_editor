@@ -1,49 +1,74 @@
-import 'package:andika/src/features/auth/data/auth_repo_impl.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
+import '../../data/models/user_model.dart';
+import '../../data/remote/auth_remote_repo.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required this.authRepoImpl}) : super(AuthInitial()) {
-    on<SignOutEvent>((event, emit) async {
-      try {
-        emit(AuthLoading());
-        await authRepoImpl.signOut();
-        emit(AuthLoggedOut());
-      } catch (e) {
-        emit(AuthError(''));
-      }
-    });
-    on<SignInEvent>((event, emit) async {
-      try {
-        emit(AuthLoading());
-        await authRepoImpl.signInEmailAndPassword(event.email, event.password);
-        emit(AuthSuccessLogin());
-      } catch (e) {
-        emit(AuthError(''));
-      }
-    });
-    on<ResetPasswordEvent>((event, emit) async {
-      try {
-        emit(AuthLoading());
-        await authRepoImpl.resetPassword(event.email);
-        emit(AuthSuccess());
-      } catch (e) {
-        emit(AuthError(''));
-      }
-    });
-    on<ChangePasswordEvent>((event, emit) async {
-      try {
-        emit(AuthLoading());
-        await authRepoImpl.resetPassword('');
-        emit(ResetPasswordSuccess());
-      } catch (e) {
-        emit(AuthError(''));
-      }
-    });
+  AuthBloc({required AuthRepo authRepo})
+    : _authRepo = authRepo,
+      super(const AuthInitial()) {
+    on<CheckAuthEvent>(_onCheckAuth);
+    on<SignInEvent>(_onSignIn);
+    on<SignUpEvent>(_onSignUp);
+    on<SignOutEvent>(_onSignOut);
   }
-  final AuthRepoImpl authRepoImpl;
+
+  final AuthRepo _authRepo;
+
+  Future<void> _onCheckAuth(
+    CheckAuthEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+    try {
+      final user = await _authRepo.getCurrentUser();
+      user != null
+          ? emit(AuthAuthenticated(user: user))
+          : emit(const AuthUnauthenticated());
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onSignIn(SignInEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
+    try {
+      final user = await _authRepo.signIn(
+        email: event.email,
+        password: event.password,
+      );
+      emit(AuthAuthenticated(user: user));
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onSignUp(SignUpEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
+    try {
+      final user = await _authRepo.signUp(
+        email: event.email,
+        password: event.password,
+        name: event.name,
+      );
+      emit(AuthAuthenticated(user: user));
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onSignOut(SignOutEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthLoading());
+    try {
+      await _authRepo.signOut();
+      emit(const AuthUnauthenticated());
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
 }

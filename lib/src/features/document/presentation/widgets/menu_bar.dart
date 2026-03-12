@@ -111,21 +111,6 @@ class _FileMenuButton extends StatelessWidget {
             signOutPressed?.call();
           },
         ),
-        PopupMenuItem<int>(
-          child: const PopUpMenuTile(icon: Icons.group, title: 'Members'),
-          onTap: () {
-            membersPressed?.call();
-          },
-        ),
-        PopupMenuItem<int>(
-          child: const PopUpMenuTile(
-            icon: Icons.person_add,
-            title: 'Invite members',
-          ),
-          onTap: () {
-            inviteMembersPressed?.call();
-          },
-        ),
       ],
       child: const Padding(
         padding: EdgeInsets.all(8.0),
