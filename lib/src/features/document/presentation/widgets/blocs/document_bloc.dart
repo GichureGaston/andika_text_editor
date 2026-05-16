@@ -5,7 +5,7 @@ import 'package:andika/src/features/document/data/models/document_page_data_mode
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../data/remote/document_remote_repository.dart';
 
